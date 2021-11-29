@@ -12,33 +12,37 @@ import SearchResults from "./SearchResults";
 import { connect } from "react-redux";
 import { fetchJobsAction } from "../actions/index.js";
 import { useSelector, useDispatch } from "react-redux";
-const mapStateToProps = (state) => ({
-  jobsArray : state.jobs.content
-})
 
-//setJobs takes a url as payload and uses it as props
-const mapDispatchToProps = (dispatch) => ({
-  setJobs: (url) => {
-    dispatch(fetchJobsAction(url))
-  }
-});
 
-const JobSearch = ({setJobs, jobsArray}) => {
+// const mapStateToProps = (state) => ({
+//   jobsArray : state.jobs.content
+// })
+
+// //setJobs takes a url as payload and uses it as props
+// const mapDispatchToProps = (dispatch) => ({
+//   setJobs: (url) => {
+//     dispatch(fetchJobsAction(url))
+//   }
+// });
+
+const JobSearch = () => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [searchResult, setSearchResult] = useState(null);
 
+  const jobsArray = useSelector(state => state.jobs.content)
+  const dispatch = useDispatch()
   const fetchData = async () => {
     if (query.length > 3 && category) {
-       setJobs(
+       dispatch(fetchJobsAction(
         `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&category=${category}&limit=10`
-      );
+      ));
     } else if (query.length > 3) {
-       setJobs(
+       dispatch(fetchJobsAction(
         `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&limit=10`
-      );
+      ));
     } else {
-         setJobs(`https://strive-jobs-api.herokuapp.com/jobs?limit=10`);
+         dispatch(fetchJobsAction(`https://strive-jobs-api.herokuapp.com/jobs?limit=10`));
     }
    console.log("HERE'S THE REDUX STATE JOBS ARRAY", jobsArray)
   };
@@ -116,4 +120,4 @@ const JobSearch = ({setJobs, jobsArray}) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(JobSearch);
+export default JobSearch;
