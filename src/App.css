@@ -55,9 +55,13 @@ p{
 
 .grayer{
   background-color: lightgray;
+  border-radius: 5px;
+  margin-bottom: 2px;
 }
 .whiter{
   background-color: whitesmoke;
+  border-radius: 5px;
+  margin-bottom: 2px;
 }
 
 .right-border{
@@ -108,10 +112,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
 
 .link-highlight{
   height: 100%;
+  padding: 10px;
 }
 .link-highlight:hover {
+  height:100;
   background-color: rgb(44, 44, 44);
-  background-repeat: no-repeat;
   border: none;
   cursor: pointer;
   outline: none;
@@ -142,8 +147,25 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endCo
   top: 0;
   z-index: 1;
   width: 100vw;
-  margin-bottom: -66px;
+  margin-bottom: -50px;
 }
 .marginT {
-  margin-top: 66px;
+  margin-top: 50px;
+}
+
+
+.rounded-jobs-right{
+border-top-right-radius: 20px;
+border-bottom-right-radius: 20px;
+}
+.rounded-jobs-left{
+border-top-left-radius: 20% !important;
+border-bottom-right-radius: 20%;
+
+}
+
+nav{
+  padding:0 !important;
+  margin:0 !important;
+  overflow:hidden;
 }

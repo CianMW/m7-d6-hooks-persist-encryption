@@ -4,21 +4,25 @@ import clipart from "../imageAssets/clipart329592.png";
 
 const MyNavbar = () => {
   return (
-    <Navbar bg="dark" variant="dark" className="navbar-scroll" >
-     
+    <Navbar bg="dark" variant="dark" className="navbar-scroll d-flex justify-content "  >
+     <div className="d-flex ml-1 p-1 justify-content-between align-items-center">
       <Link to="/">
-        <img src={clipart} height="50px" width="50px" />
+        <img src={clipart} height="50px" width="50px" style={{ filter: "brightness(1.4)"}} />
       </Link>
       <Link className="remove-deco" to="/">
-      <Nav className="ml-4 mr-auto link-highlight remove-deco">
+      <div className="ml-4 mr-2 mr-auto link-highlight remove-deco">
+        <div>
         <span>Home</span>
-      </Nav>
+        </div>
+      </div>
       </Link>
       <Link className="remove-deco " to="/favourites">
-      <Nav className="ml-4 mr-auto link-highlight remove-deco">
-        <span>Favourites</span>
-      </Nav>
+      <div className="ml-4 mr-2 link-highlight remove-deco">
+        <div> <span>Favourites</span></div>
+       
+      </div>
       </Link>
+      </div>
     </Navbar>
   );
 };

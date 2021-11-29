@@ -68,7 +68,7 @@ const SearchResults = ({result }) => {
     <Spinner animation="border" className="d-flex-inline" style={{color: "gray", width: "2em", height: "2em", fontSize: "30px", position:"absolute",}} />
 ) : (<>{result.length > 0 ? (
   result.map((data, i) => (
-    <Row className={i % 2 === 0 ? "grayer" : "whiter"}>
+    <Row className={i % 2 === 0 ? "grayer rounded-jobs" : "whiter rounded-jobs"}>
       <Col sm={9}>
         <Col sm={6}>
           

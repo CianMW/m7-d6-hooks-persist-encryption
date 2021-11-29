@@ -67,10 +67,11 @@ const Favourites = ({ result}) => {
 
   return (
     <div className="total-cover">
+      <Container>
       {arrayOfFavourites.length > 0 ? (
         arrayOfFavourites.map((data, i) => (
-          <Row className={i % 2 === 0 ? "grayer" : "whiter"}>
-            <Col sm={6}>
+          <Row className={i % 2 === 0 ? "grayer rounded-jobs" : "whiter rounded-jobs"}>
+            <Col sm={6} className="rounded-jobs-left">
               <div>
                 <p className="d-flex">
                   <h6>Company Name</h6> : {data.company_name}
@@ -86,7 +87,7 @@ const Favourites = ({ result}) => {
                 </p>
               </div>
             </Col>
-            <Col sm={6}>
+            <Col sm={6} className="rounded-jobs-right">
                 <div className="d-flex justify-content-between">
               <Link to={`/company/${data._id}`}>
                 <Button>find out more</Button>
@@ -104,6 +105,7 @@ const Favourites = ({ result}) => {
         <h2>Hmm looks like you don't have any favourites</h2>
         </>
       )}
+      </Container>
     </div>
   );
 };
