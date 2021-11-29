@@ -12,40 +12,47 @@ import {
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import clipart from "../imageAssets/clipart329592.png";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { addToFavourites, removeFromFavourites } from "../actions";
 
 
- const mapStateToProps = (state) => ({
-   favouriteArray: state.data.favourites,
-   load : state.jobs.loading
- })
+//  const mapStateToProps = (state) => ({
+//    favouriteArray: state.data.favourites,
+//    load : state.jobs.loading
+//  })
 
- const mapDispatchToProps = (dispatch) => ({
-    favourite: (element) => {
-      dispatch({
-        type: "FAVOURITE",
-        payload: element
-        })
-      },
-    removeFavourite: (element) => {
-      dispatch({
-        type: "REMOVE_FAVOURITE",
-        payload: element
-        })
-      }
-  }) 
+//  const mapDispatchToProps = (dispatch) => ({
+//     favourite: (element) => {
+//       dispatch({
+//         type: "FAVOURITE",
+//         payload: element
+//         })
+//       },
+//     removeFavourite: (element) => {
+//       dispatch({
+//         type: "REMOVE_FAVOURITE",
+//         payload: element
+//         })
+//       }
+//   }) 
 
 
 
-const Favourites = ({ result, favourite, removeFavourite, favouriteArray , load}) => {
+const Favourites = ({ result}) => {
+
+  const load = useSelector(state => state.jobs.loading)
+  const favouriteArray = useSelector(state => state.data.favourites)
+
+
+  const dispatch = useDispatch()
 
 
   const toggleClick =(element)=> {
    const index = favouriteArray.indexOf(element._id)
    if (index !== -1) {
-       favourite(element)
+       dispatch(addToFavourites(element))
    } else {
-       removeFavourite(element)
+       dispatch(removeFromFavourites(element))
    }
 
   };
@@ -105,4 +112,4 @@ const Favourites = ({ result, favourite, removeFavourite, favouriteArray , load}
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Favourites);
+export default Favourites;
