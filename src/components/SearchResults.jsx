@@ -11,44 +11,49 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import clipart from "../imageAssets/clipart329592.png";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Spinner } from "react-bootstrap";
+import { addToFavourites, removeFromFavourites } from "../actions";
 
 
  const mapStateToProps = (state) => ({
    load : state.jobs.loading
  })
 
- const mapDispatchToProps = (dispatch) => ({
-    favourite: (element) => {
-      dispatch({
-        type: "FAVOURITE",
-        payload: element
-        })
-      },
-    removeFavourite: (element) => {
-      dispatch({
-        type: "REMOVE_FAVOURITE",
-        payload: element
-        })
-      }
-  }) 
+//  const mapDispatchToProps = (dispatch) => ({
+//     favourite: (element) => {
+//       dispatch({
+//         type: "FAVOURITE",
+//         payload: element
+//         })
+//       },
+//     removeFavourite: (element) => {
+//       dispatch({
+//         type: "REMOVE_FAVOURITE",
+//         payload: element
+//         })
+//       }
+//   }) 
 
 
 
-const SearchResults = ({ result, favourite, removeFavourite, load }) => {
+const SearchResults = ({result }) => {
   const [searchResult, setSearchResult] = useState(result);
   const [selectedItemsArray, setSelectedItemsArray] = useState([]);
 
 
+  const load = useSelector(state => state.jobs.loading)
+  const favouriteArray = useSelector(state => state.data.favourites)
+
+
+  const dispatch = useDispatch()
+
   const toggleClick =(element)=> {
-   const index = selectedItemsArray.indexOf(element._id)
-   if (index === -1) {
-       setSelectedItemsArray([...selectedItemsArray, element._id])
-       favourite(element)
-   } else {
-       setSelectedItemsArray([...selectedItemsArray.filter(el => el !== element._id)])
-       removeFavourite(element)
+    if(favouriteArray.filter((el) => el._id === element._id).length < 1)
+   {
+    dispatch(addToFavourites(element))
+  } else {
+      dispatch(removeFromFavourites(element))
    }
 
   };
@@ -92,7 +97,7 @@ const SearchResults = ({ result, favourite, removeFavourite, load }) => {
         </Link>
         <div >
         <i className={
-       selectedItemsArray.includes(data._id) ? "bi bi-star-fill fav-star bubble" : "bubble bi bi-star fav-star"
+       favouriteArray.filter((el) => el._id === data._id).length >= 1 ? "bi bi-star-fill fav-star bubble" : "bubble bi bi-star fav-star"
     }
     onClick={() => toggleClick(data)} ></i>
     </div>
@@ -110,4 +115,4 @@ const SearchResults = ({ result, favourite, removeFavourite, load }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
+export default SearchResults;
